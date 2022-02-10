@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class UserInterface {
+    Scanner scanner = new Scanner(System.in);
+    RecipeBook book = new RecipeBook();
+    
+    public void start () {
+        book.toRecipe();
+        
+        System.out.println("Commands: ");
+        System.out.println("list - lists the recipes");
+        System.out.println("stop - stops the program");
+        System.out.println("find name - searches recipes by name");
+        System.out.println("find cooking time - searches recipes by cooking time");
+        System.out.println("find ingredient  - searches recipes by ingredient");
+        
+        while (true) {
+            System.out.print("\nEnter command: ");
+            String input = scanner.nextLine();
+            if (input.equals("stop")) {
+                break;
+            } else if (input.equals("list")) {
+                System.out.println("\nRecipes: ");
+                book.list();
+            } else if (input.equals("find name")) {
+                System.out.print("Searched word: ");
+                String search = scanner.nextLine();
+                System.out.println("\nRecipes: ");
+                book.searchName(search);
+            } else if (input.equals("find cooking time")) {
+                System.out.print("Max cooking time: ");
+                int search = Integer.valueOf(scanner.nextLine());
+                System.out.println("\nRecipes: ");
+                book.searchTime(search);
+            } else if (input.equals("find ingredient")) {
+                System.out.print("Ingredient: ");
+                String search = scanner.nextLine();
+                System.out.println("\nRecipes: ");
+                book.searchIngredient(search);
+            }
+        }  
+    }
+}
