@@ -1,0 +1,26 @@
+
+import java.util.ArrayList;
+
+
+public class Recipe {
+    private String name;
+    private int cookTime;
+    ArrayList<String> ingredients = new ArrayList<>();
+    
+    public Recipe(String name, int cookTime, ArrayList ingredients) {
+        this.name = name;
+        this.cookTime = cookTime;
+        this.ingredients = ingredients;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getTime() {
+        return cookTime;
+    }
+    
+    
+    
+}
