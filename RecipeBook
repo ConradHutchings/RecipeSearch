@@ -1,0 +1,83 @@
+
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class RecipeBook {
+    ArrayList<Recipe> recipes = new ArrayList<>();
+    
+    public RecipeBook () {
+        
+    }
+    
+    public void toRecipe() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("File to read: ");
+        try (Scanner fileScan = new Scanner(Paths.get("recipes.txt"))) {
+            System.out.println("");
+            while (fileScan.hasNextLine()) {
+                ArrayList<String> ingredients = new ArrayList<>();
+                
+                String name = fileScan.nextLine();
+                int cookTime = Integer.valueOf(fileScan.nextLine());
+                
+                while (fileScan.hasNextLine()) {
+                    String line = fileScan.nextLine();
+                    if (line.isEmpty()) {
+                        Recipe newRecipe = new Recipe(name, cookTime, ingredients);
+                        recipes.add(newRecipe);
+                        break;
+                    } else {
+                        ingredients.add(line);
+                    } 
+                }
+                if (!(fileScan.hasNextLine())) {
+                    Recipe newRecipe = new Recipe(name, cookTime, ingredients);
+                    recipes.add(newRecipe);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    public void list() {
+        for (int i = 0; i < recipes.size(); i++) {
+            System.out.print(recipes.get(i).getName());
+            System.out.println(", cooking time: " + recipes.get(i).getTime());
+        }
+    }
+    
+    public String getRecipe(int i) {
+        return recipes.get(i).getName() + ", cooking time: " + recipes.get(i).getTime();
+    }
+    
+    public void searchName(String name) {
+        for (Recipe x : recipes) {
+            if (x.getName().contains(name)) {
+                System.out.println(getRecipe(recipes.indexOf(x)));
+            } 
+        }
+    }
+    
+    public void searchTime(int time) {
+        for (Recipe x : recipes) {
+            if (x.getTime() <= time) {
+                System.out.println(getRecipe(recipes.indexOf(x)));
+            } 
+        }
+    }
+    
+    public void searchIngredient(String ingredient) {
+        for (Recipe x : recipes) {
+            if (x.ingredients.contains(ingredient)) {
+                System.out.println(getRecipe(recipes.indexOf(x)));
+            } 
+        }
+    }
+        
+    
+}
+
